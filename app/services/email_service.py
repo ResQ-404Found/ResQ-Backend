@@ -33,7 +33,7 @@ class EmailService:
             raise HTTPException(status_code=400, detail="이미 가입된 이메일 입니다.")
         
         token = JWTUtil.generate_email_verification_token(email)
-        url = f"http://localhost:3000/verify-email?token={token}"
+        url = f"resq://verify-email?token={token}"
         self._send_email_for_verify(email, url)
 
     async def request_password_reset(self, email: str):
@@ -42,7 +42,7 @@ class EmailService:
             raise HTTPException(status_code=400, detail="가입되지 않은 이메일 입니다.")
         
         token = JWTUtil.generate_password_reset_token(email)
-        url = f"http://localhost:3000/reset-password?token={token}"
+        url = f"resq://reset-password?token={token}"
         self._send_email_for_reset(email, url)
 
     async def verify_email_token(self, token: str):
